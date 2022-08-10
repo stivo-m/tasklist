@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:tasklist/app/application/state/state/app_state.dart';
 import 'package:tasklist/app/application/state/view_models/tasks/tasks_view_model.dart';
 import 'package:tasklist/app/domain/core/entities/tasks/task_list.dart';
+import 'package:tasklist/app/domain/core/objects/enums.dart';
 import 'package:tasklist/app/domain/core/objects/strings.dart';
 import 'package:tasklist/app/presentation/widgets/input_field.dart';
+import 'package:uuid/uuid.dart';
 
 class CreateTaskListPage extends StatefulWidget {
   const CreateTaskListPage({Key? key}) : super(key: key);
@@ -56,7 +58,10 @@ class _CreateTaskListPageState extends State<CreateTaskListPage> {
                             vm.createTaskList(
                               context: context,
                               taskList: TaskList(
+                                id: Uuid().v4(),
                                 title: listTitle.text,
+                                description: '',
+                                taskListType: TasListType.user,
                               ),
                             );
                             Navigator.pop(context);

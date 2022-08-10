@@ -8,6 +8,7 @@ part 'app_state.g.dart';
 @freezed
 class AppState with _$AppState {
   factory AppState({
+    int? currentTabIndex,
     TaskState? taskState,
     @JsonKey(ignore: true) Wait? wait,
   }) = _AppState;
@@ -15,6 +16,7 @@ class AppState with _$AppState {
       _$AppStateFromJson(json);
 
   factory AppState.initial() => AppState(
+        currentTabIndex: 0,
         taskState: TaskState.initial(),
         wait: Wait(),
       );

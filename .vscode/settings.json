@@ -4,6 +4,7 @@
 		"Cupertino",
 		"dartz",
 		"objectdb",
+		"sqflite",
 		"tasklist",
 		"vsync"
 	]

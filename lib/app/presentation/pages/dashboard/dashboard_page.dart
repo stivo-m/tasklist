@@ -5,7 +5,6 @@ import 'package:tasklist/app/application/state/actions/tasks/fetch_task_list_act
 import 'package:tasklist/app/application/state/state/app_state.dart';
 import 'package:tasklist/app/application/state/view_models/dashboard/dashboard_view_model.dart';
 import 'package:tasklist/app/domain/core/entities/tasks/task_list.dart';
-import 'package:tasklist/app/infrastructure/repository/repository.dart';
 import 'package:tasklist/app/presentation/pages/dashboard/widgets/app_bottom_bar.dart';
 import 'package:tasklist/app/presentation/pages/dashboard/widgets/custom_app_bar.dart';
 import 'package:tasklist/app/presentation/pages/dashboard/widgets/task_list_widget.dart';
@@ -20,15 +19,13 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage>
     with TickerProviderStateMixin {
-  late TabController controller;
+  ScrollController scrollController = ScrollController();
+  int currentIndex = 0;
 
   @override
-  void initState() {
-    controller = TabController(
-      length: 2,
-      vsync: this,
-    );
-    super.initState();
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
   }
 
   @override
@@ -40,51 +37,62 @@ class _DashboardPageState extends State<DashboardPage>
           context,
           FetchTaskListAction(
             context: context,
-            client: DataRepository.getRepository(),
           ),
-        );
-        controller = TabController(
-          length: store.state.taskState!.tasksLists!.length,
-          vsync: this,
         );
       },
       builder: (BuildContext context, DashboardViewModel vm) {
-        return Scaffold(
-          body: NestedScrollView(
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                CustomAppBar(
-                  tabController: controller,
-                  taskLists: vm.taskLists,
-                ),
-              ];
-            },
-            body: TabBarView(
-              controller: controller,
-              children: vm.taskLists
-                  .map(
-                    (TaskList list) => TaskListWidget(
-                      taskList: list,
-                    ),
-                  )
-                  .toList(),
+        if (vm.isLoading || vm.taskLists.length < 2) {
+          return Center();
+        }
+
+        return DefaultTabController(
+          length: vm.taskLists.length,
+          child: Scaffold(
+            body: Builder(
+              builder: (BuildContext context) {
+                return NestedScrollView(
+                  controller: scrollController,
+                  headerSliverBuilder:
+                      (BuildContext context, bool innerBoxIsScrolled) {
+                    return <Widget>[
+                      CustomAppBar(
+                        taskLists: vm.taskLists,
+                        onTap: (int index) {
+                          vm.setCurrentIndex(index);
+                        },
+                      ),
+                    ];
+                  },
+                  body: TabBarView(
+                    children: vm.taskLists
+                        .map(
+                          (TaskList list) => TaskListWidget(
+                            taskList: list,
+                          ),
+                        )
+                        .toList(),
+                  ),
+                );
+              },
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                showAppBottomSheet(
+                  context: context,
+                  body: CreateTaskListBottomSheet(
+                    taskList: vm.taskLists[
+                        DefaultTabController.of(context)?.index ?? 0],
+                  ),
+                );
+              },
+              child: Icon(Icons.add),
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            bottomNavigationBar: AppBottomBar(
+              selectedIndex: DefaultTabController.of(context)?.index ?? 0,
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              showAppBottomSheet(
-                context: context,
-                body: CreateTaskListBottomSheet(
-                  taskList: vm.taskLists[controller.index],
-                ),
-              );
-            },
-            child: Icon(Icons.add),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: AppBottomBar(),
         );
       },
     );

@@ -7,7 +7,7 @@ part 'task_item.g.dart';
 @freezed
 class TaskItem with _$TaskItem {
   factory TaskItem({
-    @JsonKey(name: 'id') String? id,
+    @JsonKey(name: 'uuid') String? id,
     @JsonKey(name: 'parent_id') String? parentId,
     @JsonKey(name: 'title') String? title,
     @JsonKey(name: 'description') String? description,

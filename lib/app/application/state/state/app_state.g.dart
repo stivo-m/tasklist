@@ -7,6 +7,7 @@ part of 'app_state.dart';
 // **************************************************************************
 
 _$_AppState _$$_AppStateFromJson(Map<String, dynamic> json) => _$_AppState(
+      currentTabIndex: json['currentTabIndex'] as int?,
       taskState: json['taskState'] == null
           ? null
           : TaskState.fromJson(json['taskState'] as Map<String, dynamic>),
@@ -14,5 +15,6 @@ _$_AppState _$$_AppStateFromJson(Map<String, dynamic> json) => _$_AppState(
 
 Map<String, dynamic> _$$_AppStateToJson(_$_AppState instance) =>
     <String, dynamic>{
+      'currentTabIndex': instance.currentTabIndex,
       'taskState': instance.taskState,
     };

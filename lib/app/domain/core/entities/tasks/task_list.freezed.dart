@@ -20,7 +20,7 @@ TaskList _$TaskListFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TaskList {
-  @JsonKey(name: 'id')
+  @JsonKey(name: 'uuid')
   String? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'title')
   String? get title => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $TaskListCopyWith<$Res> {
   factory $TaskListCopyWith(TaskList value, $Res Function(TaskList) then) =
       _$TaskListCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'id')
+      {@JsonKey(name: 'uuid')
           String? id,
       @JsonKey(name: 'title')
           String? title,
@@ -102,7 +102,7 @@ abstract class _$$_TaskListCopyWith<$Res> implements $TaskListCopyWith<$Res> {
       __$$_TaskListCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'id')
+      {@JsonKey(name: 'uuid')
           String? id,
       @JsonKey(name: 'title')
           String? title,
@@ -161,7 +161,7 @@ class __$$_TaskListCopyWithImpl<$Res> extends _$TaskListCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_TaskList implements _TaskList {
   _$_TaskList(
-      {@JsonKey(name: 'id')
+      {@JsonKey(name: 'uuid')
           this.id,
       @JsonKey(name: 'title')
           this.title,
@@ -177,7 +177,7 @@ class _$_TaskList implements _TaskList {
       _$$_TaskListFromJson(json);
 
   @override
-  @JsonKey(name: 'id')
+  @JsonKey(name: 'uuid')
   final String? id;
   @override
   @JsonKey(name: 'title')
@@ -243,7 +243,7 @@ class _$_TaskList implements _TaskList {
 
 abstract class _TaskList implements TaskList {
   factory _TaskList(
-      {@JsonKey(name: 'id')
+      {@JsonKey(name: 'uuid')
           final String? id,
       @JsonKey(name: 'title')
           final String? title,
@@ -257,7 +257,7 @@ abstract class _TaskList implements TaskList {
   factory _TaskList.fromJson(Map<String, dynamic> json) = _$_TaskList.fromJson;
 
   @override
-  @JsonKey(name: 'id')
+  @JsonKey(name: 'uuid')
   String? get id;
   @override
   @JsonKey(name: 'title')

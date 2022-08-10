@@ -7,11 +7,11 @@ class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     Key? key,
     required this.taskLists,
-    required this.tabController,
+    required this.onTap,
   }) : super(key: key);
 
   final List<TaskList> taskLists;
-  final TabController tabController;
+  final Function(int) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,6 @@ class CustomAppBar extends StatelessWidget {
       pinned: true,
       floating: true,
       bottom: TabBar(
-        controller: tabController,
         isScrollable: true,
         onTap: (int index) {
           bool isLastTab = taskLists.indexOf(taskLists.last) == index;

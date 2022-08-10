@@ -2,12 +2,11 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:tasklist/app/application/state/actions/tasks/create_task_item_action.dart';
 import 'package:tasklist/app/application/state/actions/tasks/create_task_list_action.dart';
+import 'package:tasklist/app/application/state/actions/tasks/delete_task_list_item_action.dart';
 import 'package:tasklist/app/application/state/flags/flags.dart';
 import 'package:tasklist/app/application/state/state/app_state.dart';
 import 'package:tasklist/app/domain/core/entities/tasks/task_item.dart';
 import 'package:tasklist/app/domain/core/entities/tasks/task_list.dart';
-import 'package:tasklist/app/domain/core/interfaces/database/i_database_interface.dart';
-import 'package:tasklist/app/infrastructure/repository/repository.dart';
 
 class TasksViewModel {
   TasksViewModel({
@@ -15,12 +14,18 @@ class TasksViewModel {
     required this.taskLists,
     required this.createTaskList,
     required this.createTaskItem,
+    required this.removeTaskListItem,
   });
 
   final Function({
     required BuildContext context,
     required TaskList taskList,
   }) createTaskList;
+
+  final Function({
+    required BuildContext context,
+    required TaskList taskList,
+  }) removeTaskListItem;
 
   final Function({
     required BuildContext context,
@@ -32,9 +37,6 @@ class TasksViewModel {
   final List<TaskList> taskLists;
 
   static TasksViewModel fromStore(Store<AppState> store) {
-    /// [client] will return the respective client responsible for the creation
-    /// of tasks
-    IDatabaseInterface client = DataRepository.getRepository();
     return TasksViewModel(
       isLoading:
           store.state.wait?.isWaitingFor(AppFlags.fetchTaskListFlag) ?? false,
@@ -48,7 +50,6 @@ class TasksViewModel {
           CreateTaskItemAction(
             taskItem: taskItem,
             context: context,
-            client: client,
             taskListId: taskId,
           ),
         );
@@ -61,7 +62,17 @@ class TasksViewModel {
           CreateTaskListAction(
             taskList: taskList,
             context: context,
-            client: client,
+          ),
+        );
+      },
+      removeTaskListItem: ({
+        required BuildContext context,
+        required TaskList taskList,
+      }) {
+        store.dispatch(
+          DeleteTaskListItemAction(
+            taskList: taskList,
+            context: context,
           ),
         );
       },

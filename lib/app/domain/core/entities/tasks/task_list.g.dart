@@ -7,7 +7,7 @@ part of 'task_list.dart';
 // **************************************************************************
 
 _$_TaskList _$$_TaskListFromJson(Map<String, dynamic> json) => _$_TaskList(
-      id: json['id'] as String?,
+      id: json['uuid'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,
       tasks: (json['tasks'] as List<dynamic>?)
@@ -20,7 +20,7 @@ _$_TaskList _$$_TaskListFromJson(Map<String, dynamic> json) => _$_TaskList(
 
 Map<String, dynamic> _$$_TaskListToJson(_$_TaskList instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'uuid': instance.id,
       'title': instance.title,
       'description': instance.description,
       'tasks': instance.tasks,

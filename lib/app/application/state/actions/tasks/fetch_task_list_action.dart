@@ -9,14 +9,15 @@ import 'package:tasklist/app/application/state/state/app_state.dart';
 import 'package:tasklist/app/domain/core/entities/errors/system_error.dart';
 import 'package:tasklist/app/domain/core/entities/tasks/task_list.dart';
 import 'package:tasklist/app/domain/core/interfaces/database/i_database_interface.dart';
+import 'package:tasklist/app/infrastructure/repository/data/task_list_repository.dart';
 
 class FetchTaskListAction extends ReduxAction<AppState> {
   FetchTaskListAction({
     required this.context,
-    required this.client,
+    this.client,
   });
 
-  final IDatabaseInterface client;
+   IDatabaseInterface? client;
   final BuildContext context;
 
   @override
@@ -33,9 +34,10 @@ class FetchTaskListAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
+    client ??= TaskListRepository();
     await requestPermissions();
     final Either<SystemError, List<TaskList>> result =
-        await client.fetchRecords(null);
+        await client!.fetchRecords(null);
 
     return result.fold(
       (SystemError error) {
@@ -44,7 +46,6 @@ class FetchTaskListAction extends ReduxAction<AppState> {
       (List<TaskList> records) {
         return state.copyWith.taskState?.call(
           tasksLists: <TaskList>[
-            defaultItems.first,
             ...records,
             defaultItems.last,
           ],

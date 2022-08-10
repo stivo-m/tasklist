@@ -6,10 +6,12 @@ import 'package:tasklist/app/application/service/bottom_sheets/app_bottom_sheet.
 import 'package:tasklist/app/application/state/state/app_state.dart';
 import 'package:tasklist/app/application/state/view_models/dashboard/dashboard_view_model.dart';
 import 'package:tasklist/app/domain/core/entities/tasks/task_list.dart';
+import 'package:tasklist/app/presentation/pages/tasks/widgets/show_task_list_options_bottom_sheet.dart';
 import 'package:tasklist/app/presentation/pages/tasks/widgets/show_task_lists_bottom_sheet.dart';
 
 class AppBottomBar extends StatelessWidget {
-  const AppBottomBar({Key? key}) : super(key: key);
+  const AppBottomBar({Key? key, required this.selectedIndex, }) : super(key: key);
+  final int selectedIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,16 @@ class AppBottomBar extends StatelessWidget {
                 child: Icon(Icons.menu),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                   showAppBottomSheet(
+                    context: context,
+                    height: (vm.taskLists.length * 60) +
+                        (Platform.isAndroid ? 60 : 85),
+                    body: ShowTaskListOptionsBottomSheet(
+                      taskList: vm.taskLists[selectedIndex],
+                    ),
+                  );
+                },
                 child: Icon(Icons.more_vert),
               ),
             ],

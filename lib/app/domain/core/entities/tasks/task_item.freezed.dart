@@ -20,7 +20,7 @@ TaskItem _$TaskItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TaskItem {
-  @JsonKey(name: 'id')
+  @JsonKey(name: 'uuid')
   String? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'parent_id')
   String? get parentId => throw _privateConstructorUsedError;
@@ -44,7 +44,7 @@ abstract class $TaskItemCopyWith<$Res> {
   factory $TaskItemCopyWith(TaskItem value, $Res Function(TaskItem) then) =
       _$TaskItemCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'id')
+      {@JsonKey(name: 'uuid')
           String? id,
       @JsonKey(name: 'parent_id')
           String? parentId,
@@ -111,7 +111,7 @@ abstract class _$$_TaskItemCopyWith<$Res> implements $TaskItemCopyWith<$Res> {
       __$$_TaskItemCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'id')
+      {@JsonKey(name: 'uuid')
           String? id,
       @JsonKey(name: 'parent_id')
           String? parentId,
@@ -177,7 +177,7 @@ class __$$_TaskItemCopyWithImpl<$Res> extends _$TaskItemCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_TaskItem implements _TaskItem {
   _$_TaskItem(
-      {@JsonKey(name: 'id') this.id,
+      {@JsonKey(name: 'uuid') this.id,
       @JsonKey(name: 'parent_id') this.parentId,
       @JsonKey(name: 'title') this.title,
       @JsonKey(name: 'description') this.description,
@@ -188,7 +188,7 @@ class _$_TaskItem implements _TaskItem {
       _$$_TaskItemFromJson(json);
 
   @override
-  @JsonKey(name: 'id')
+  @JsonKey(name: 'uuid')
   final String? id;
   @override
   @JsonKey(name: 'parent_id')
@@ -252,7 +252,7 @@ class _$_TaskItem implements _TaskItem {
 
 abstract class _TaskItem implements TaskItem {
   factory _TaskItem(
-      {@JsonKey(name: 'id')
+      {@JsonKey(name: 'uuid')
           final String? id,
       @JsonKey(name: 'parent_id')
           final String? parentId,
@@ -268,7 +268,7 @@ abstract class _TaskItem implements TaskItem {
   factory _TaskItem.fromJson(Map<String, dynamic> json) = _$_TaskItem.fromJson;
 
   @override
-  @JsonKey(name: 'id')
+  @JsonKey(name: 'uuid')
   String? get id;
   @override
   @JsonKey(name: 'parent_id')

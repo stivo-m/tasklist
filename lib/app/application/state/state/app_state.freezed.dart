@@ -20,6 +20,7 @@ AppState _$AppStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AppState {
+  int? get currentTabIndex => throw _privateConstructorUsedError;
   TaskState? get taskState => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   Wait? get wait => throw _privateConstructorUsedError;
@@ -34,7 +35,10 @@ mixin _$AppState {
 abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
       _$AppStateCopyWithImpl<$Res>;
-  $Res call({TaskState? taskState, @JsonKey(ignore: true) Wait? wait});
+  $Res call(
+      {int? currentTabIndex,
+      TaskState? taskState,
+      @JsonKey(ignore: true) Wait? wait});
 
   $TaskStateCopyWith<$Res>? get taskState;
 }
@@ -49,10 +53,15 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? currentTabIndex = freezed,
     Object? taskState = freezed,
     Object? wait = freezed,
   }) {
     return _then(_value.copyWith(
+      currentTabIndex: currentTabIndex == freezed
+          ? _value.currentTabIndex
+          : currentTabIndex // ignore: cast_nullable_to_non_nullable
+              as int?,
       taskState: taskState == freezed
           ? _value.taskState
           : taskState // ignore: cast_nullable_to_non_nullable
@@ -82,7 +91,10 @@ abstract class _$$_AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
           _$_AppState value, $Res Function(_$_AppState) then) =
       __$$_AppStateCopyWithImpl<$Res>;
   @override
-  $Res call({TaskState? taskState, @JsonKey(ignore: true) Wait? wait});
+  $Res call(
+      {int? currentTabIndex,
+      TaskState? taskState,
+      @JsonKey(ignore: true) Wait? wait});
 
   @override
   $TaskStateCopyWith<$Res>? get taskState;
@@ -100,10 +112,15 @@ class __$$_AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? currentTabIndex = freezed,
     Object? taskState = freezed,
     Object? wait = freezed,
   }) {
     return _then(_$_AppState(
+      currentTabIndex: currentTabIndex == freezed
+          ? _value.currentTabIndex
+          : currentTabIndex // ignore: cast_nullable_to_non_nullable
+              as int?,
       taskState: taskState == freezed
           ? _value.taskState
           : taskState // ignore: cast_nullable_to_non_nullable
@@ -119,11 +136,14 @@ class __$$_AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AppState implements _AppState {
-  _$_AppState({this.taskState, @JsonKey(ignore: true) this.wait});
+  _$_AppState(
+      {this.currentTabIndex, this.taskState, @JsonKey(ignore: true) this.wait});
 
   factory _$_AppState.fromJson(Map<String, dynamic> json) =>
       _$$_AppStateFromJson(json);
 
+  @override
+  final int? currentTabIndex;
   @override
   final TaskState? taskState;
   @override
@@ -132,7 +152,7 @@ class _$_AppState implements _AppState {
 
   @override
   String toString() {
-    return 'AppState(taskState: $taskState, wait: $wait)';
+    return 'AppState(currentTabIndex: $currentTabIndex, taskState: $taskState, wait: $wait)';
   }
 
   @override
@@ -140,6 +160,8 @@ class _$_AppState implements _AppState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AppState &&
+            const DeepCollectionEquality()
+                .equals(other.currentTabIndex, currentTabIndex) &&
             const DeepCollectionEquality().equals(other.taskState, taskState) &&
             const DeepCollectionEquality().equals(other.wait, wait));
   }
@@ -148,6 +170,7 @@ class _$_AppState implements _AppState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(currentTabIndex),
       const DeepCollectionEquality().hash(taskState),
       const DeepCollectionEquality().hash(wait));
 
@@ -166,11 +189,14 @@ class _$_AppState implements _AppState {
 
 abstract class _AppState implements AppState {
   factory _AppState(
-      {final TaskState? taskState,
+      {final int? currentTabIndex,
+      final TaskState? taskState,
       @JsonKey(ignore: true) final Wait? wait}) = _$_AppState;
 
   factory _AppState.fromJson(Map<String, dynamic> json) = _$_AppState.fromJson;
 
+  @override
+  int? get currentTabIndex;
   @override
   TaskState? get taskState;
   @override
